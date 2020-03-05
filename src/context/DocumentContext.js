@@ -15,7 +15,7 @@ export const DocumentProvider = ({ children }) => {
 
   const [work, setWork] = useState([
     {
-      id: 1,
+      id: `1`,
       company: "United Remote",
       role: "Frontend developer",
       start: "2018",
@@ -29,7 +29,7 @@ export const DocumentProvider = ({ children }) => {
     setWork(work => [
       ...work,
       {
-        id: Math.floor(Math.random() * 100000),
+        id: `${Math.floor(Math.random() * 100000)}`,
         company: "",
         role: "",
         start: "",
@@ -108,6 +108,7 @@ export const DocumentProvider = ({ children }) => {
         values,
         handleChange,
         work,
+        setWork,
         addWork,
         editWork,
         deleteWork,

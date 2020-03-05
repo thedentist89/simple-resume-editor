@@ -1,9 +1,46 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { DocumentContext } from "../context/DocumentContext";
 import { ReactComponent as Grip } from "../assets/grip-vertical-solid.svg";
 
 const WorkEditor = () => {
-  const { work, editWork, addWork, deleteWork } = useContext(DocumentContext);
+  const { work, editWork, addWork, deleteWork, setWork } = useContext(
+    DocumentContext
+  );
+
+  const [state, setState] = useState({ workList: work });
+
+  useEffect(() => {
+    setState({ workList: work });
+  }, [work]);
+
+  const reorder = (list, startIndex, endIndex) => {
+    const result = Array.from(list);
+    console.log(result);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+
+    return result;
+  };
+
+  function onDragEnd(result) {
+    if (!result.destination) {
+      return;
+    }
+
+    if (result.destination.index === result.source.index) {
+      return;
+    }
+
+    const workList = reorder(
+      state.workList,
+      result.source.index,
+      result.destination.index
+    );
+
+    setState({ workList });
+    setWork(workList);
+  }
 
   return (
     <>
@@ -14,89 +51,111 @@ const WorkEditor = () => {
         </h1>
         <div className="w-full h-px bg-purple-300 -mt-4" />
       </div>
-      <div className="mt-8 bg-white rounded shadow">
-        {work.map(w => (
-          <div className="p-5" key={w.id}>
-            <div className="flex px-4 py-3 justify-between items-center bg-gray-200 rounded">
-              <Grip className="h-5 w-5 fill-current text-gray-700" />
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="work">
+          {provided => (
+            <div
+              className="mt-8 bg-white rounded shadow"
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              {state.workList.map((w, index) => (
+                <Draggable draggableId={`${w.id}`} index={index} key={w.id}>
+                  {provided => (
+                    <div
+                      className="p-5"
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                      <div className="flex px-4 py-3 justify-between items-center bg-gray-200 rounded">
+                        <Grip className="h-5 w-5 fill-current text-gray-700" />
+                        <button
+                          className="text-red-500 font-semibold text-xl"
+                          onClick={() => deleteWork(w.id)}
+                        >
+                          delete
+                        </button>
+                      </div>
+                      <div className="mt-4 flex">
+                        <div className="w-1/2 mr-4">
+                          <label className="font-bold">Company</label>
+                          <input
+                            type="text"
+                            className="rounded border block mt-2 p-2 w-full"
+                            value={w.company}
+                            name="company"
+                            onChange={e => editWork(e, w.id)}
+                          />
+                        </div>
+                        <div className="w-1/2">
+                          <label className="font-bold">Role</label>
+                          <input
+                            type="text"
+                            className="rounded border block mt-2 p-2 w-full"
+                            value={w.role}
+                            name="role"
+                            onChange={e => editWork(e, w.id)}
+                          />
+                        </div>
+                      </div>
+                      <div className="mt-4 flex">
+                        <div className="w-1/2 mr-4">
+                          <label className="font-bold block">
+                            Start & end date
+                          </label>
+                          <div className="flex mt-2">
+                            <input
+                              type="text"
+                              className="rounded border inline-block p-2 w-1/2 mr-3"
+                              value={w.start}
+                              name="start"
+                              onChange={e => editWork(e, w.id)}
+                            />
+                            <input
+                              type="text"
+                              className="rounded border inline-block p-2 w-1/2"
+                              value={w.end}
+                              name="end"
+                              onChange={e => editWork(e, w.id)}
+                            />
+                          </div>
+                        </div>
+                        <div className="w-1/2">
+                          <label className="font-bold">Location</label>
+                          <input
+                            type="text"
+                            className="rounded border block mt-2 p-2 w-full"
+                            value={w.location}
+                            name="location"
+                            onChange={e => editWork(e, w.id)}
+                          />
+                        </div>
+                      </div>
+                      <div className="mt-4">
+                        <textarea
+                          rows="5"
+                          className="w-full border rounded p-1"
+                          value={w.description}
+                          name="description"
+                          onChange={e => editWork(e, w.id)}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
               <button
-                className="text-red-500 font-semibold text-xl"
-                onClick={() => deleteWork(w.id)}
+                className="text-purple-900 text-lg font-semibold my-4 ml-4"
+                onClick={addWork}
               >
-                delete
+                &#43; Add new experience
               </button>
             </div>
-            <div className="mt-4 flex">
-              <div className="w-1/2 mr-4">
-                <label className="font-bold">Company</label>
-                <input
-                  type="text"
-                  className="rounded border block mt-2 p-2 w-full"
-                  value={w.company}
-                  name="company"
-                  onChange={e => editWork(e, w.id)}
-                />
-              </div>
-              <div className="w-1/2">
-                <label className="font-bold">Role</label>
-                <input
-                  type="text"
-                  className="rounded border block mt-2 p-2 w-full"
-                  value={w.role}
-                  name="role"
-                  onChange={e => editWork(e, w.id)}
-                />
-              </div>
-            </div>
-            <div className="mt-4 flex">
-              <div className="w-1/2 mr-4">
-                <label className="font-bold block">Start & end date</label>
-                <div className="flex mt-2">
-                  <input
-                    type="text"
-                    className="rounded border inline-block p-2 w-1/2 mr-3"
-                    value={w.start}
-                    name="start"
-                    onChange={e => editWork(e, w.id)}
-                  />
-                  <input
-                    type="text"
-                    className="rounded border inline-block p-2 w-1/2"
-                    value={w.end}
-                    name="end"
-                    onChange={e => editWork(e, w.id)}
-                  />
-                </div>
-              </div>
-              <div className="w-1/2">
-                <label className="font-bold">Location</label>
-                <input
-                  type="text"
-                  className="rounded border block mt-2 p-2 w-full"
-                  value={w.location}
-                  name="location"
-                  onChange={e => editWork(e, w.id)}
-                />
-              </div>
-            </div>
-            <div className="mt-4">
-              <textarea
-                rows="5"
-                className="w-full border rounded p-1"
-                value={w.description}
-                name="description"
-                onChange={e => editWork(e, w.id)}
-              />
-            </div>
-          </div>
-        ))}
-        <button
-          className="text-purple-900 text-lg font-semibold my-4 ml-4"
-          onClick={addWork}
-        >
-          &#43; Add new experience
-        </button>
-      </div>
+          )}
+        </Droppable>
+      </DragDropContext>
     </>
   );
 };
