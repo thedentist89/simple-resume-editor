@@ -16,7 +16,6 @@ const WorkEditor = () => {
 
   const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
-    console.log(result);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
 
@@ -63,13 +62,14 @@ const WorkEditor = () => {
                 <Draggable draggableId={`${w.id}`} index={index} key={w.id}>
                   {provided => (
                     <div
-                      className="p-5"
+                      className="p-5 bg-white rounded"
                       ref={provided.innerRef}
                       {...provided.draggableProps}
-                      {...provided.dragHandleProps}
                     >
                       <div className="flex px-4 py-3 justify-between items-center bg-gray-200 rounded">
-                        <Grip className="h-5 w-5 fill-current text-gray-700" />
+                        <div {...provided.dragHandleProps}>
+                          <Grip className="h-5 w-5 fill-current text-gray-700" />
+                        </div>
                         <button
                           className="text-red-500 font-semibold text-xl"
                           onClick={() => deleteWork(w.id)}
