@@ -5,5 +5,5 @@ module.exports = {
   variants: {
     borderColor: ["responsive", "hover", "focus", "active", "group-hover"]
   },
-  plugins: []
+  plugins: [require("tailwind-caret-color")()]
 };

@@ -13255,6 +13255,22 @@ video {
           transition-duration: 1000ms;
 }
 
+.caret-transparent {
+  caret-color: transparent;
+}
+
+.caret-black {
+  caret-color: #000;
+}
+
+.caret-white {
+  caret-color: #fff;
+}
+
+.caret-purple-600 {
+  caret-color: #805ad5;
+}
+
 @media (min-width: 640px) {
   .sm\:sr-only {
     position: absolute;

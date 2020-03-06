@@ -88,22 +88,20 @@ const WorkEditor = () => {
                           <label className="font-bold">Company</label>
                           <input
                             type="text"
-                            className="rounded bg-gray-100 focus:outline-none border-b border-transparent focus:border-purple-600 block mt-2 p-2 w-full"
+                            className="rounded bg-gray-100 focus:outline-none border-b border-transparent caret-purple-600 focus:border-purple-600 block mt-2 p-2 w-full"
                             value={w.company}
                             name="company"
                             onChange={e => editWork(e, w.id)}
-                            style={{ caretColor: "#805ad5" }}
                           />
                         </div>
                         <div className="w-1/2">
                           <label className="font-bold">Role</label>
                           <input
                             type="text"
-                            className="rounded bg-gray-100 focus:outline-none border-b border-transparent focus:border-purple-600 block mt-2 p-2 w-full"
+                            className="rounded bg-gray-100 focus:outline-none border-b border-transparent focus:border-purple-600 caret-purple-600 block mt-2 p-2 w-full"
                             value={w.role}
                             name="role"
                             onChange={e => editWork(e, w.id)}
-                            style={{ caretColor: "#805ad5" }}
                           />
                         </div>
                       </div>
@@ -115,19 +113,17 @@ const WorkEditor = () => {
                           <div className="flex mt-2">
                             <input
                               type="text"
-                              className="rounded bg-gray-100 focus:outline-none border-b border-transparent focus:border-purple-600 inline-block p-2 w-1/2 mr-3"
+                              className="rounded bg-gray-100 focus:outline-none border-b border-transparent focus:border-purple-600 caret-purple-600 inline-block p-2 w-1/2 mr-3"
                               value={w.start}
                               name="start"
                               onChange={e => editWork(e, w.id)}
-                              style={{ caretColor: "#805ad5" }}
                             />
                             <input
                               type="text"
-                              className="rounded bg-gray-100 focus:outline-none border-b border-transparent focus:border-purple-600 inline-block p-2 w-1/2"
+                              className="rounded bg-gray-100 focus:outline-none border-b border-transparent focus:border-purple-600 caret-purple-600 inline-block p-2 w-1/2"
                               value={w.end}
                               name="end"
                               onChange={e => editWork(e, w.id)}
-                              style={{ caretColor: "#805ad5" }}
                             />
                           </div>
                         </div>
@@ -135,22 +131,20 @@ const WorkEditor = () => {
                           <label className="font-bold">Location</label>
                           <input
                             type="text"
-                            className="rounded bg-gray-100 focus:outline-none border-b border-transparent focus:border-purple-600 block mt-2 p-2 w-full"
+                            className="rounded bg-gray-100 focus:outline-none border-b border-transparent focus:border-purple-600 caret-purple-600 block mt-2 p-2 w-full"
                             value={w.location}
                             name="location"
                             onChange={e => editWork(e, w.id)}
-                            style={{ caretColor: "#805ad5" }}
                           />
                         </div>
                       </div>
                       <div className="mt-4">
                         <textarea
                           rows="5"
-                          className="w-full bg-gray-100 focus:outline-none border-b border-transparent focus:border-purple-600 rounded p-1"
+                          className="w-full bg-gray-100 focus:outline-none border-b border-transparent focus:border-purple-600 caret-purple-600 rounded p-1"
                           value={w.description}
                           name="description"
                           onChange={e => editWork(e, w.id)}
-                          style={{ caretColor: "#805ad5" }}
                         />
                       </div>
                     </div>

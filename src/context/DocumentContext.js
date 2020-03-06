@@ -54,21 +54,21 @@ export const DocumentProvider = ({ children }) => {
 
   const [education, setEducation] = useState([
     {
-      id: 1,
+      id: "1",
       start: "2017",
       end: "2018",
       school: "FSJESK",
       degree: "Bachalor in Finance"
     },
     {
-      id: 2,
+      id: "2",
       start: "2018",
       end: "2019",
       school: "FSJESK",
       degree: "Maters in Management"
     },
     {
-      id: 3,
+      id: "3",
       start: "2019",
       end: "2020",
       school: "FSJESK",
@@ -80,7 +80,7 @@ export const DocumentProvider = ({ children }) => {
     setEducation(education => [
       ...education,
       {
-        id: Math.floor(Math.random() * 100000),
+        id: `${Math.floor(Math.random() * 100000)}`,
         start: "",
         end: "",
         school: "",
@@ -115,7 +115,8 @@ export const DocumentProvider = ({ children }) => {
         addEducation,
         editEducation,
         deleteEducation,
-        education
+        education,
+        setEducation
       }}
     >
       {children}

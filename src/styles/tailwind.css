@@ -3,3 +3,7 @@
 @import "tailwindcss/components";
 
 @import "tailwindcss/utilities";
+
+.caret-purple-600 {
+  caret-color: #805ad5;
+}
