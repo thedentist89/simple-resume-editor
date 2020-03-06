@@ -3,6 +3,7 @@ import Document from "./components/Document";
 import Editor from "./components/Editor";
 import { Router } from "@reach/router";
 import Banner from "./components/Banner";
+import "./styles/index.css";
 
 export default function App() {
   return (
