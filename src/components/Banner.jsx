@@ -21,9 +21,7 @@ const Banner = () => {
         style={{ left: "50%" }}
         onMouseLeave={showBanner}
       >
-        <h1 className="text-purple-600 font-semibold">
-          Simple Resume Editor v0.0.1
-        </h1>
+        <h1 className="text-purple-600 font-semibold">Fast Resume v0.0.3</h1>
         {window.location.pathname === "/editor" ? (
           <Link
             to="/"

@@ -6,10 +6,9 @@ import { DocumentContext } from "../context/DocumentContext";
 const Document = () => {
   const { values } = useContext(DocumentContext);
 
-  const { skills, languages } = values;
+  const { skills } = values;
 
   const skillsArray = skills.split(",");
-  const languaguesArray = languages.split(",");
 
   return (
     <>
@@ -35,17 +34,6 @@ const Document = () => {
               className="inline-block mr-2 px-3 rounded bg-purple-200 text-purple-900 font-semibold py-1"
             >
               {skill}
-            </li>
-          ))}
-        </ul>
-        <h2 className="mt-4 font-semibold uppercase">Languages</h2>
-        <ul className="mt-2">
-          {languaguesArray.map((language, idx) => (
-            <li
-              key={idx}
-              className="inline-block mr-2 px-3 rounded bg-purple-200 text-purple-900 font-semibold py-1"
-            >
-              {language}
             </li>
           ))}
         </ul>

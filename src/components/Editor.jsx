@@ -7,22 +7,63 @@ const Editor = () => {
   const { values, handleChange } = useContext(DocumentContext);
 
   return (
-    <>
+    <div className="max-w-2xl mx-auto">
+      <div className="mt-8">
+        <h1 className="text-2xl font-semibold bg-gray-100 inline-block pt-4 pr-4">
+          <span className="text-purple-600 text-2xl mr-2">&bull;</span>Personal
+          Information
+        </h1>
+        <div className="w-full h-px bg-purple-300 -mt-4" />
+      </div>
       <div className="mt-8 bg-white p-10 rounded shadow">
         <div className="flex justify-between">
           <div className="w-2/3">
+            <label className="font-bold">Full Name</label>
             <input
               type="text"
-              className="text-3xl font-semibold focus:outline-none focus:bg-gray-300 rounded pl-2"
+              className="rounded bg-gray-100 focus:outline-none border-b border-transparent caret-purple-600 focus:border-purple-600 block mt-2 p-2 w-full"
               value={values.name}
               name="name"
               onChange={handleChange}
             />
+            <label className="font-bold mt-4 block">Job Title</label>
             <input
               type="text"
-              className="text-gray-600 mt-2 focus:outline-none focus:bg-gray-300 rounded pl-2"
+              className="rounded bg-gray-100 focus:outline-none border-b border-transparent caret-purple-600 focus:border-purple-600 block mt-2 p-2 w-full"
               value={values.title}
               name="title"
+              onChange={handleChange}
+            />
+            <label className="font-bold mt-4 block">Email</label>
+            <input
+              type="text"
+              className="rounded bg-gray-100 focus:outline-none border-b border-transparent caret-purple-600 focus:border-purple-600 block mt-2 p-2 w-full"
+              value={values.email}
+              name="email"
+              onChange={handleChange}
+            />
+            <label className="font-bold mt-4 block">Phone</label>
+            <input
+              type="text"
+              className="rounded bg-gray-100 focus:outline-none border-b border-transparent caret-purple-600 focus:border-purple-600 block mt-2 p-2 w-full"
+              value={values.phone}
+              name="phone"
+              onChange={handleChange}
+            />
+            <label className="font-bold mt-4 block">Location</label>
+            <input
+              type="text"
+              className="rounded bg-gray-100 focus:outline-none border-b border-transparent caret-purple-600 focus:border-purple-600 block mt-2 p-2 w-full"
+              value={values.location}
+              name="location"
+              onChange={handleChange}
+            />
+            <label className="mt-4 font-bold block">Bio</label>
+            <textarea
+              value={values.bio}
+              rows="2"
+              className="rounded bg-gray-100 focus:outline-none border-b border-transparent caret-purple-600 focus:border-purple-600 block mt-2 p-2 w-full"
+              name="bio"
               onChange={handleChange}
             />
           </div>
@@ -32,14 +73,7 @@ const Editor = () => {
             className="rounded-full h-20 w-20 border-4 border-indigo-600"
           />
         </div>
-        <h2 className="mt-4 font-semibold uppercase pl-2">Bio</h2>
-        <textarea
-          value={values.bio}
-          rows="2"
-          className="w-2/3 mt-2 focus:outline-none focus:bg-gray-300 p-2 rounded"
-          name="bio"
-          onChange={handleChange}
-        />
+
         <h2 className="mt-4 font-semibold uppercase pl-2">Skills</h2>
         <textarea
           value={values.skills}
@@ -48,18 +82,10 @@ const Editor = () => {
           name="skills"
           onChange={handleChange}
         />
-        <h2 className="mt-4 font-semibold uppercase">Languages</h2>
-        <textarea
-          value={values.languages}
-          rows="2"
-          className="w-2/3 mt-2 focus:outline-none focus:bg-gray-300 p-2 rounded"
-          name="languages"
-          onChange={handleChange}
-        />
       </div>
       <WorkEditor />
       <EducationEditor />
-    </>
+    </div>
   );
 };
 

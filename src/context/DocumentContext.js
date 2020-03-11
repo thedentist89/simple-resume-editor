@@ -9,9 +9,17 @@ export const DocumentProvider = ({ children }) => {
     title: "Frontend developer",
     bio:
       "JavaScript Enthusiast, life long learner and passionate about everything Tech",
-    skills: "HTML, CSS, JavaScript, ReactJs",
-    languages: "French, English, Arabic"
+    phone: "+212690092625",
+    email: "mourad.eyes@gmail.com",
+    location: "kenitra, morocco",
+    skills: "HTML, CSS, JavaScript, ReactJs"
   });
+
+  // const [languages, setLanguages] = useState([
+  //   { id: "1", name: "French", level: 3 },
+  //   { id: "2", name: "Arabic", level: 5 },
+  //   { id: "2", name: "English", level: 5 }
+  // ]);
 
   const [work, setWork] = useState([
     {
