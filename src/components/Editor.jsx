@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import WorkEditor from "./WorkEditor";
 import EducationEditor from "./EducationEditor";
 import { DocumentContext } from "../context/DocumentContext";
+import LanguageEditor from "./LanguageEditor";
 
 const Editor = () => {
   const { values, handleChange } = useContext(DocumentContext);
@@ -73,15 +74,15 @@ const Editor = () => {
             className="rounded-full h-20 w-20 border-4 border-indigo-600"
           />
         </div>
-
-        <h2 className="mt-4 font-semibold uppercase pl-2">Skills</h2>
+        <h2 className="mt-4 font-bold">Skills</h2>
         <textarea
           value={values.skills}
           rows="2"
-          className="w-2/3 mt-2 focus:outline-none focus:bg-gray-300 p-2 rounded"
+          className="rounded bg-gray-100 focus:outline-none border-b border-transparent caret-purple-600 focus:border-purple-600 block mt-2 p-2 w-full"
           name="skills"
           onChange={handleChange}
         />
+        <LanguageEditor />
       </div>
       <WorkEditor />
       <EducationEditor />

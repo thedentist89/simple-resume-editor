@@ -15,11 +15,11 @@ export const DocumentProvider = ({ children }) => {
     skills: "HTML, CSS, JavaScript, ReactJs"
   });
 
-  // const [languages, setLanguages] = useState([
-  //   { id: "1", name: "French", level: 3 },
-  //   { id: "2", name: "Arabic", level: 5 },
-  //   { id: "2", name: "English", level: 5 }
-  // ]);
+  const [languages, setLanguages] = useState([
+    { id: "1", name: "French", level: 3 },
+    { id: "2", name: "Arabic", level: 4 },
+    { id: "3", name: "English", level: 1 }
+  ]);
 
   const [work, setWork] = useState([
     {
@@ -124,7 +124,9 @@ export const DocumentProvider = ({ children }) => {
         editEducation,
         deleteEducation,
         education,
-        setEducation
+        setEducation,
+        languages,
+        setLanguages
       }}
     >
       {children}
