@@ -5,7 +5,7 @@ import { Router } from "@reach/router";
 import Banner from "./components/Banner";
 import Modern from "./templates/Modern";
 import "./styles/index.css";
-import PDFView from "./templates/PDFView";
+import ModernPDF from "./templates/ModernPDF";
 
 export default function App() {
   return (
@@ -16,7 +16,7 @@ export default function App() {
           <Document path="/" />
           <Editor path="/editor" />
           <Modern path="/modern" />
-          <PDFView path="/pdf" />
+          <ModernPDF path="/pdf" />
         </Router>
       </div>
     </div>
