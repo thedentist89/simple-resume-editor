@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import WorkEditor from "./WorkEditor";
 import EducationEditor from "./EducationEditor";
 import { DocumentContext } from "../context/DocumentContext";
@@ -34,7 +34,12 @@ const Editor = () => {
                 >
                   Change Photo
                 </span>
-                <input type="file" className="hidden" onChange={changePhoto} />
+                <input
+                  type="file"
+                  className="hidden"
+                  onChange={changePhoto}
+                  accept="image/x-png,image/jpeg"
+                />
               </label>
             </div>
           </div>

@@ -3,7 +3,6 @@ import Document from "./components/Document";
 import Editor from "./components/Editor";
 import { Router } from "@reach/router";
 import Banner from "./components/Banner";
-import Modern from "./templates/Modern";
 import "./styles/index.css";
 import ModernPDF from "./templates/ModernPDF";
 
@@ -15,7 +14,6 @@ export default function App() {
         <Router>
           <Document path="/" />
           <Editor path="/editor" />
-          <Modern path="/modern" />
           <ModernPDF path="/pdf" />
         </Router>
       </div>
