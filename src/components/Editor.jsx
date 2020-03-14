@@ -3,6 +3,7 @@ import WorkEditor from "./WorkEditor";
 import EducationEditor from "./EducationEditor";
 import { DocumentContext } from "../context/DocumentContext";
 import LanguageEditor from "./LanguageEditor";
+import ColorSelector from "./ColorSelector";
 
 const Editor = () => {
   const { values, handleChange, img, changePhoto } = useContext(
@@ -19,6 +20,7 @@ const Editor = () => {
         <div className="w-full h-px bg-purple-300 -mt-4" />
       </div>
       <div className="mt-8 bg-white p-10 rounded shadow">
+        <ColorSelector />
         <div className="flex justify-between flex-col">
           <div className="flex items-center">
             <div className="flex flex-col items-center mx-auto">
