@@ -1,5 +1,6 @@
 import React, { useContext, Fragment } from "react";
 import { DocumentContext } from "../context/DocumentContext";
+import { colors } from "../config.json";
 import mail from "../assets/mail.png";
 import phone from "../assets/phone.png";
 import pin from "../assets/pin.png";
@@ -26,12 +27,12 @@ import {
   SectionHeading
 } from "./styles";
 
-const color = "#805ad5";
-
 const ModernPDF = () => {
-  const { img, values, languages, work, education } = useContext(
+  const { img, values, languages, work, education, selectedColor } = useContext(
     DocumentContext
   );
+
+  const { color } = colors.find(color => selectedColor === color.color);
 
   return (
     <PDFViewer className="w-full h-screen">
@@ -49,10 +50,12 @@ const ModernPDF = () => {
                 <Text style={{ fontSize: "12pt" }}>{values.location}</Text>
               </View>
               <View style={{ marginVertical: "20pt" }}>
-                <AsideHeading>Skills</AsideHeading>
+                <AsideHeading color={color}>Skills</AsideHeading>
                 <AsideSkills>
                   {values.skills.split(",").map((skill, index) => (
-                    <Skill key={index}>{skill}</Skill>
+                    <Skill color={color} key={index}>
+                      {skill}
+                    </Skill>
                   ))}
                 </AsideSkills>
                 <View style={{ marginVertical: "20pt" }}>
@@ -65,7 +68,11 @@ const ModernPDF = () => {
                         </Text>
                         <LanguageContainer>
                           {range(5).map(n =>
-                            n < language.level ? <Circle /> : <Circle empty />
+                            n < language.level ? (
+                              <Circle color={color} key={n} />
+                            ) : (
+                              <Circle empty color={color} key={n} />
+                            )
                           )}
                         </LanguageContainer>
                       </Fragment>
@@ -75,17 +82,17 @@ const ModernPDF = () => {
               </View>
             </Aside>
             <Main>
-              <Header>
+              <Header color={color}>
                 <Name>{values.name}</Name>
                 <Role>{values.title}</Role>
                 <Line />
                 <Description>{values.bio}</Description>
               </Header>
               <View style={{ marginVertical: 30, paddingRight: 30 }}>
-                <SectionHeading>work experience</SectionHeading>
+                <SectionHeading color={color}>work experience</SectionHeading>
                 {work.map(work => (
                   <View style={{ paddingVertical: 30 }} key={work.id}>
-                    <JobTitle>{work.role}</JobTitle>
+                    <JobTitle color={color}>{work.role}</JobTitle>
                     <Text>{work.company}</Text>
                     <FlexBetween>
                       <Text style={{ fontSize: 14 }}>
@@ -96,7 +103,7 @@ const ModernPDF = () => {
                     <Text style={{ fontSize: 10 }}>{work.description}</Text>
                   </View>
                 ))}
-                <SectionHeading>education</SectionHeading>
+                <SectionHeading color={color}>education</SectionHeading>
                 {education.map(education => (
                   <View style={{ marginTop: 20 }} key={education.id}>
                     <Text style={{ color, fontWeight: 900, fontSize: 16 }}>

@@ -1,34 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { DocumentContext } from "../context/DocumentContext";
+import { colors } from "../config.json";
 
 const ColorSelector = () => {
-  const [selectedColor, setSelectedColor] = useState("purple");
-
-  const colors = [
-    {
-      color: "blue",
-      className: "bg-blue-600"
-    },
-    {
-      color: "green",
-      className: "bg-green-600"
-    },
-    {
-      color: "purple",
-      className: "bg-purple-600"
-    },
-    {
-      color: "yellow",
-      className: "bg-yellow-600"
-    },
-    {
-      color: "red",
-      className: "bg-red-600"
-    }
-  ];
-
-  const handleSelect = e => {
-    setSelectedColor(e.target.value);
-  };
+  const { selectColor, selectedColor } = useContext(DocumentContext);
 
   return (
     <div className="flex my-4">
@@ -53,7 +28,7 @@ const ColorSelector = () => {
               name="color"
               value={color.color}
               className="hidden"
-              onChange={handleSelect}
+              onChange={selectColor}
             />
           </label>
         ))}

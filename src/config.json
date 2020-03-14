@@ -1,0 +1,29 @@
+{
+  "colors": [
+    {
+      "color": "blue",
+      "className": "bg-blue-600",
+      "value": "#3182ce"
+    },
+    {
+      "color": "green",
+      "className": "bg-green-600",
+      "value": "#38a169"
+    },
+    {
+      "color": "purple",
+      "className": "bg-purple-600",
+      "value": "#b794f4"
+    },
+    {
+      "color": "indigo",
+      "className": "bg-indigo-600",
+      "value": "#5a67d8"
+    },
+    {
+      "color": "red",
+      "className": "bg-red-600",
+      "value": "#e53e3e"
+    }
+  ]
+}

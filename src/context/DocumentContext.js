@@ -122,6 +122,12 @@ export const DocumentProvider = ({ children }) => {
     setEducation(copy);
   };
 
+  const [selectedColor, setSelectedColor] = useState("purple");
+
+  const selectColor = e => {
+    setSelectedColor(e.target.value);
+  };
+
   return (
     <DocumentContext.Provider
       value={{
@@ -140,7 +146,9 @@ export const DocumentProvider = ({ children }) => {
         languages,
         setLanguages,
         img,
-        changePhoto
+        changePhoto,
+        selectColor,
+        selectedColor
       }}
     >
       {children}

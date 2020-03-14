@@ -1,7 +1,5 @@
 import styled from "@react-pdf/styled-components";
 
-const color = "#805ad5";
-
 export const ProfileImage = styled.Image`
   width: 120pt;
   height: 120pt;
@@ -23,7 +21,7 @@ export const Main = styled.View`
 `;
 
 export const Header = styled.View`
-  background-color: ${color};
+  background-color: ${props => props.color};
   padding: 20pt 20pt;
 `;
 
@@ -52,14 +50,14 @@ export const Description = styled.Text`
 `;
 
 export const SectionHeading = styled.Text`
-  color: ${color};
+  color: ${props => props.color};
   text-transform: uppercase;
   font-weight: bold;
-  border-bottom: 1pt solid ${color};
+  border-bottom: 1pt solid ${props => props.color};
 `;
 
 export const JobTitle = styled.Text`
-  color: ${color};
+  color: ${props => props.color};
   font-weight: 900;
   font-size: 20;
 `;
@@ -86,10 +84,10 @@ export const Icon = styled.Image`
 `;
 
 export const AsideHeading = styled.Text`
-  color: ${color};
+  color: ${props => props.color};
   text-transform: uppercase;
   font-weight: bold;
-  border-bottom: 1pt solid ${color};
+  border-bottom: 1pt solid ${props => props.color};
 `;
 
 export const AsideSkills = styled.View`
@@ -101,7 +99,7 @@ export const AsideSkills = styled.View`
 `;
 
 export const Skill = styled.Text`
-  background-color: ${color};
+  background-color: ${props => props.color};
   color: white;
   padding: 4pt 2pt;
   border-radius: 4pt;
@@ -121,7 +119,7 @@ export const Circle = styled.View`
   height: 20;
   width: 20;
   border-radius: 100;
-  border: 2pt solid ${color};
+  border: 2pt solid ${props => props.color};
   margin-right: 4;
-  background-color: ${props => (props.empty ? "white" : color)};
+  background-color: ${props => (props.empty ? "white" : props.color)};
 `;
