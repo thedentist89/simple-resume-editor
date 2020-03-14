@@ -21,19 +21,28 @@ const Banner = () => {
         style={{ left: "50%" }}
         onMouseLeave={showBanner}
       >
-        <h1 className="text-purple-600 font-semibold">
-          Simple Resume Editor v0.0.1
-        </h1>
+        <h1 className="text-purple-600 font-semibold">Fast Resume v0.0.3</h1>
         {window.location.pathname === "/editor" ? (
-          <Link
-            to="/"
-            className="px-4 py-1 rounded text-white bg-purple-600 hover:bg-purple-400"
-            onClick={() => {
-              setIsBannerOpen(false);
-            }}
-          >
-            Save
-          </Link>
+          <div>
+            <Link
+              to="/"
+              className="px-4 py-1 rounded text-white bg-purple-600 hover:bg-purple-400 mr-4"
+              onClick={() => {
+                setIsBannerOpen(false);
+              }}
+            >
+              Save
+            </Link>
+            <Link
+              to="/pdf"
+              className="px-4 py-1 rounded text-white bg-purple-600 hover:bg-purple-400"
+              onClick={() => {
+                setIsBannerOpen(false);
+              }}
+            >
+              PDF
+            </Link>
+          </div>
         ) : (
           <Link
             to="editor"
