@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import WorkExp from "./WorkExp";
 import Education from "./Education";
 import { DocumentContext } from "../context/DocumentContext";
+import SectionTitle from "./SectionTitle";
 
 const Document = () => {
   const { values, img } = useContext(DocumentContext);
@@ -12,6 +13,7 @@ const Document = () => {
 
   return (
     <div className="max-w-2xl mx-auto">
+      <SectionTitle>Profile</SectionTitle>
       <div className="mt-8 bg-white p-10 rounded shadow">
         <div className="flex justify-between">
           <div className="w-2/3">
@@ -38,20 +40,9 @@ const Document = () => {
           ))}
         </ul>
       </div>
-      <div className="mt-6">
-        <h1 className="text-2xl font-semibold bg-gray-100 inline-block pt-4 pr-4">
-          <span className="text-purple-600 text-2xl mr-2">&bull;</span>Work
-          Experience
-        </h1>
-        <div className="w-full h-px bg-purple-300 -mt-4" />
-      </div>
+      <SectionTitle>Work Experience</SectionTitle>
       <WorkExp />
-      <div className="mt-6">
-        <h1 className="text-2xl font-semibold bg-gray-100 inline-block pt-4 pr-4">
-          <span className="text-purple-600 text-2xl mr-2">&bull;</span>Education
-        </h1>
-        <div className="w-full h-px bg-purple-300 -mt-4" />
-      </div>
+      <SectionTitle>Education</SectionTitle>
       <Education />
     </div>
   );
