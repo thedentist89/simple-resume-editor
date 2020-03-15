@@ -6,7 +6,11 @@ import {
   EDIT_WORK,
   REORDER_WORK,
   ADD_WORK,
-  DELETE_WORK
+  DELETE_WORK,
+  EDIT_EDUCATION,
+  REORDER_EDUCATION,
+  ADD_EDUCATION,
+  DELETE_EDUCATION
 } from "../actions";
 
 export const DocumentReducer = (state, action) => {
@@ -64,6 +68,30 @@ export const DocumentReducer = (state, action) => {
         workExperience: state.workExperience.filter(
           work => work.id !== action.payload.id
         )
+      };
+    case EDIT_EDUCATION:
+      const eduList = [...state.education];
+      const edu = eduList.find(ed => ed.id === action.payload.id);
+      edu[action.payload.name] = action.payload.value;
+      eduList.splice(eduList.indexOf(edu), 1, edu);
+      return {
+        ...state,
+        education: eduList
+      };
+    case REORDER_EDUCATION:
+      return {
+        ...state,
+        education: action.payload.education
+      };
+    case ADD_EDUCATION:
+      return {
+        ...state,
+        education: [...state.education, action.payload.education]
+      };
+    case DELETE_EDUCATION:
+      return {
+        ...state,
+        education: state.education.filter(ed => ed.id !== action.payload.id)
       };
     default:
       return state;

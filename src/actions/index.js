@@ -6,3 +6,7 @@ export const ADD_WORK = "ADD_WORK";
 export const DELETE_WORK = "DELETE_WORK";
 export const REORDER_WORK = "REORDER_WORK";
 export const EDIT_WORK = "EDIT_WORK";
+export const ADD_EDUCATION = "ADD_EDUCATION";
+export const DELETE_EDUCATION = "DELETE_EDUCATION";
+export const REORDER_EDUCATION = "REORDER_EDUCATION";
+export const EDIT_EDUCATION = "EDIT_EDUCATION";
