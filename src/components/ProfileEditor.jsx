@@ -1,18 +1,39 @@
 import React, { useContext } from "react";
 import { DocumentContext } from "../context/DocumentContext";
 import Input from "./Input";
+import { EDIT_PROFILE, CHANGE_PHOTO } from "../actions";
 
 const ProfileEditor = () => {
-  const { values, handleChange, img, changePhoto } = useContext(
-    DocumentContext
-  );
+  const { state, dispatch } = useContext(DocumentContext);
+
+  const { personalInfo } = state;
+
+  const handleChange = e => {
+    dispatch({
+      type: EDIT_PROFILE,
+      payload: { name: e.target.name, value: e.target.value }
+    });
+  };
+
+  const handleImageChange = e => {
+    const reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onloadend = function() {
+      dispatch({
+        type: CHANGE_PHOTO,
+        payload: {
+          image: reader.result
+        }
+      });
+    };
+  };
 
   return (
     <div className="flex justify-between flex-col">
       <div className="flex items-center">
         <div className="flex flex-col items-center mx-auto">
           <img
-            src={img}
+            src={personalInfo.image}
             alt="Mourad Aouinat"
             className="rounded-full h-40 w-40"
           />
@@ -26,7 +47,7 @@ const ProfileEditor = () => {
             <input
               type="file"
               className="hidden"
-              onChange={changePhoto}
+              onChange={handleImageChange}
               accept="image/x-png,image/jpeg"
             />
           </label>
@@ -35,37 +56,37 @@ const ProfileEditor = () => {
       <div>
         <Input
           label="Full Name"
-          value={values.name}
+          value={personalInfo.name}
           name="name"
           handleChange={handleChange}
         />
         <Input
           label="Job Title"
-          value={values.title}
+          value={personalInfo.title}
           name="title"
           handleChange={handleChange}
         />
         <Input
           label="Email"
-          value={values.email}
+          value={personalInfo.email}
           name="email"
           handleChange={handleChange}
         />
         <Input
           label="Phone"
-          value={values.phone}
+          value={personalInfo.phone}
           name="phone"
           handleChange={handleChange}
         />
         <Input
           label="Location"
-          value={values.location}
+          value={personalInfo.location}
           name="location"
           handleChange={handleChange}
         />
         <label className="mt-4 font-bold block">Bio</label>
         <textarea
-          value={values.bio}
+          value={personalInfo.bio}
           rows="2"
           className="rounded bg-gray-100 focus:outline-none border-b border-transparent caret-purple-600 focus:border-purple-600 block mt-2 p-2 w-full"
           name="bio"
@@ -74,7 +95,7 @@ const ProfileEditor = () => {
       </div>
       <h2 className="mt-4 font-bold">Skills</h2>
       <textarea
-        value={values.skills}
+        value={personalInfo.skills}
         rows="2"
         className="rounded bg-gray-100 focus:outline-none border-b border-transparent caret-purple-600 focus:border-purple-600 block mt-2 p-2 w-full"
         name="skills"
