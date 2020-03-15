@@ -1,20 +1,21 @@
 import React, { useContext, useState, useEffect } from "react";
+import { v4 as id } from "uuid";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { DocumentContext } from "../context/DocumentContext";
 import { ReactComponent as Grip } from "../assets/grip-vertical-solid.svg";
 import { ReactComponent as Trash } from "../assets/trash.svg";
 import { ReactComponent as Plus } from "../assets/plus.svg";
+import { REORDER_WORK, EDIT_WORK, ADD_WORK, DELETE_WORK } from "../actions";
 
 const WorkEditor = () => {
-  const { work, editWork, addWork, deleteWork, setWork } = useContext(
-    DocumentContext
-  );
+  const { state, dispatch } = useContext(DocumentContext);
+  const { workExperience } = state;
 
-  const [state, setState] = useState({ workList: work });
+  const [localState, setState] = useState({ workList: workExperience });
 
   useEffect(() => {
-    setState({ workList: work });
-  }, [work]);
+    setState({ workList: workExperience });
+  }, [workExperience]);
 
   const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -34,14 +35,55 @@ const WorkEditor = () => {
     }
 
     const workList = reorder(
-      state.workList,
+      localState.workList,
       result.source.index,
       result.destination.index
     );
 
     setState({ workList });
-    setWork(workList);
+    dispatch({
+      type: REORDER_WORK,
+      payload: {
+        work: workList
+      }
+    });
   }
+
+  const editWork = (e, id) => {
+    dispatch({
+      type: EDIT_WORK,
+      payload: {
+        name: e.target.name,
+        value: e.target.value,
+        id
+      }
+    });
+  };
+
+  const addWork = () => {
+    dispatch({
+      type: ADD_WORK,
+      payload: {
+        work: {
+          id: id(),
+          company: "",
+          role: "",
+          start: "",
+          end: "",
+          location: ""
+        }
+      }
+    });
+  };
+
+  const deleteWork = id => {
+    dispatch({
+      type: DELETE_WORK,
+      payload: {
+        id
+      }
+    });
+  };
 
   return (
     <>
@@ -60,7 +102,7 @@ const WorkEditor = () => {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {state.workList.map((w, index) => (
+              {localState.workList.map((w, index) => (
                 <Draggable draggableId={`${w.id}`} index={index} key={w.id}>
                   {provided => (
                     <div

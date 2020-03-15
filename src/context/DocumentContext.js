@@ -7,45 +7,6 @@ export const DocumentContext = createContext();
 export const DocumentProvider = ({ children }) => {
   const [state, dispatch] = useReducer(DocumentReducer, initialState);
 
-  const [work, setWork] = useState([
-    {
-      id: `1`,
-      company: "United Remote",
-      role: "Frontend developer",
-      start: "2018",
-      end: "2019",
-      location: "kenitra, MOROCCO",
-      description: "Blah blah blah you get the idea"
-    }
-  ]);
-
-  const addWork = () => {
-    setWork(work => [
-      ...work,
-      {
-        id: `${Math.floor(Math.random() * 100000)}`,
-        company: "",
-        role: "",
-        start: "",
-        end: "",
-        location: ""
-      }
-    ]);
-  };
-
-  const editWork = (e, id) => {
-    const exp = work.find(work => work.id === id);
-    exp[e.target.name] = e.target.value;
-    const idx = work.indexOf(exp);
-    const copy = [...work];
-    copy.splice(idx, 1, exp);
-    setWork(copy);
-  };
-
-  const deleteWork = id => {
-    setWork(work => work.filter(w => w.id !== id));
-  };
-
   const [education, setEducation] = useState([
     {
       id: "1",
@@ -105,11 +66,6 @@ export const DocumentProvider = ({ children }) => {
   return (
     <DocumentContext.Provider
       value={{
-        work,
-        setWork,
-        addWork,
-        editWork,
-        deleteWork,
         addEducation,
         editEducation,
         deleteEducation,
