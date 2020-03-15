@@ -7,27 +7,41 @@ import { ReactComponent as Circle } from "../assets/circle.svg";
 import { ReactComponent as CircleSolid } from "../assets/circle-solid.svg";
 import { v4 as uuid } from "uuid";
 import { range } from "lodash";
+import { ADD_LANGUAGE, DELETE_LANGUAGE } from "../actions";
 
 const LanguageEditor = () => {
-  const { languages, setLanguages } = useContext(DocumentContext);
+  const { state, dispatch } = useContext(DocumentContext);
   const [values, handleChange, setValues] = useForm({
     language: "",
     level: "1"
   });
 
+  const { languages } = state;
+
   const handleAdd = () => {
     if (values.language === "") {
       return;
     }
-    setLanguages(languages => [
-      ...languages,
-      { id: uuid(), name: values.language, level: parseInt(values.level) }
-    ]);
+    dispatch({
+      type: ADD_LANGUAGE,
+      payload: {
+        language: {
+          id: uuid(),
+          name: values.language,
+          level: parseInt(values.level)
+        }
+      }
+    });
     setValues({ language: "", level: "1" });
   };
 
   const handleDelete = id => {
-    setLanguages(languages.filter(l => l.id !== id));
+    dispatch({
+      type: DELETE_LANGUAGE,
+      payload: {
+        id
+      }
+    });
   };
 
   return (

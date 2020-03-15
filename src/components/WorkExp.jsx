@@ -2,7 +2,8 @@ import React, { useContext } from "react";
 import { DocumentContext } from "../context/DocumentContext";
 
 const WorkExp = () => {
-  const { work } = useContext(DocumentContext);
+  const { state } = useContext(DocumentContext);
+  const { workExperience: work } = state;
 
   return (
     <div className="mt-8 bg-white rounded shadow">

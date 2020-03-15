@@ -1,20 +1,22 @@
 import React, { useContext, useState, useEffect } from "react";
+import { v4 as id } from "uuid";
 import { DocumentContext } from "../context/DocumentContext";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { ReactComponent as Grip } from "../assets/grip-vertical-solid.svg";
 import { ReactComponent as Trash } from "../assets/trash.svg";
 import { ReactComponent as Plus } from "../assets/plus.svg";
+import {
+  REORDER_EDUCATION,
+  EDIT_EDUCATION,
+  ADD_EDUCATION,
+  DELETE_EDUCATION
+} from "../actions";
 
 const EducationEditor = () => {
-  const {
-    education,
-    editEducation,
-    addEducation,
-    deleteEducation,
-    setEducation
-  } = useContext(DocumentContext);
+  const { state, dispatch } = useContext(DocumentContext);
+  const { education } = state;
 
-  const [state, setState] = useState({ educationList: education });
+  const [localState, setState] = useState({ educationList: education });
 
   useEffect(() => {
     setState({ educationList: education });
@@ -38,14 +40,54 @@ const EducationEditor = () => {
     }
 
     const educationList = reorder(
-      state.educationList,
+      localState.educationList,
       result.source.index,
       result.destination.index
     );
 
     setState({ educationList });
-    setEducation(educationList);
+    dispatch({
+      type: REORDER_EDUCATION,
+      payload: {
+        education: educationList
+      }
+    });
   }
+
+  const editEducation = (e, id) => {
+    dispatch({
+      type: EDIT_EDUCATION,
+      payload: {
+        id,
+        name: e.target.name,
+        value: e.target.value
+      }
+    });
+  };
+
+  const addEducation = () => {
+    dispatch({
+      type: ADD_EDUCATION,
+      payload: {
+        education: {
+          id: id(),
+          start: "",
+          end: "",
+          school: "",
+          degree: ""
+        }
+      }
+    });
+  };
+
+  const deleteEducation = id => {
+    dispatch({
+      type: DELETE_EDUCATION,
+      payload: {
+        id
+      }
+    });
+  };
 
   return (
     <>
@@ -63,7 +105,7 @@ const EducationEditor = () => {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {state.educationList.map((ed, index) => (
+              {localState.educationList.map((ed, index) => (
                 <Draggable draggableId={`${ed.id}`} index={index} key={ed.id}>
                   {provided => (
                     <div

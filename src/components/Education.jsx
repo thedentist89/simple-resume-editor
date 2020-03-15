@@ -2,7 +2,8 @@ import React, { useContext } from "react";
 import { DocumentContext } from "../context/DocumentContext";
 
 const Education = () => {
-  const { education } = useContext(DocumentContext);
+  const { state } = useContext(DocumentContext);
+  const { education } = state;
 
   return (
     <div className="my-6">
