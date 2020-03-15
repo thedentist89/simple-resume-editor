@@ -1,9 +1,18 @@
 import React, { useContext } from "react";
 import { DocumentContext } from "../context/DocumentContext";
-import { colors } from "../config.json";
+import { colors } from "../data.json";
+import { SELECT_COLOR } from "../actions";
 
 const ColorSelector = () => {
-  const { selectColor, selectedColor } = useContext(DocumentContext);
+  const { state, dispatch } = useContext(DocumentContext);
+  const { currentColor } = state;
+
+  const selectColor = e => {
+    dispatch({
+      type: SELECT_COLOR,
+      payload: { color: e.target.value }
+    });
+  };
 
   return (
     <div className="flex my-4">
@@ -14,12 +23,12 @@ const ColorSelector = () => {
               className={`block h-8 w-8 rounded-full ${
                 color.className
               } mx-4 flex items-center ${
-                selectedColor === color.color ? "border-2 border-gray-800" : ""
+                currentColor === color.color ? "border-2 border-gray-800" : ""
               }`}
             >
               <span
                 className={`h-2 w-2 bg-gray-700 rounded-full mx-auto ${
-                  selectedColor === color.color ? "" : "hidden"
+                  currentColor === color.color ? "" : "hidden"
                 }`}
               ></span>
             </span>

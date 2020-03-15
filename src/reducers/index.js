@@ -10,7 +10,8 @@ import {
   EDIT_EDUCATION,
   REORDER_EDUCATION,
   ADD_EDUCATION,
-  DELETE_EDUCATION
+  DELETE_EDUCATION,
+  SELECT_COLOR
 } from "../actions";
 
 export const DocumentReducer = (state, action) => {
@@ -92,6 +93,11 @@ export const DocumentReducer = (state, action) => {
       return {
         ...state,
         education: state.education.filter(ed => ed.id !== action.payload.id)
+      };
+    case SELECT_COLOR:
+      return {
+        ...state,
+        currentColor: action.payload.color
       };
     default:
       return state;

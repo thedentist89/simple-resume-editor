@@ -1,6 +1,6 @@
 import React, { useContext, Fragment } from "react";
 import { DocumentContext } from "../context/DocumentContext";
-import { colors } from "../config.json";
+import { colors } from "../data.json";
 import mail from "../assets/mail.png";
 import phone from "../assets/phone.png";
 import pin from "../assets/pin.png";
@@ -28,11 +28,17 @@ import {
 } from "./styles";
 
 const ModernPDF = () => {
-  const { img, values, languages, work, education, selectedColor } = useContext(
-    DocumentContext
-  );
+  const { state } = useContext(DocumentContext);
 
-  const { color } = colors.find(color => selectedColor === color.color);
+  const {
+    personalInfo,
+    workExperience,
+    education,
+    languages,
+    currentColor
+  } = state;
+
+  const { color } = colors.find(color => currentColor === color.color);
 
   return (
     <PDFViewer className="w-full h-screen">
@@ -40,19 +46,21 @@ const ModernPDF = () => {
         <Page size="A4">
           <Container>
             <Aside>
-              <ProfileImage src={img} />
+              <ProfileImage src={personalInfo.image} />
               <View style={{ marginVertical: "20pt" }}>
                 <Icon source={mail} />
-                <Text style={{ fontSize: "12pt" }}>{values.email}</Text>
+                <Text style={{ fontSize: "12pt" }}>{personalInfo.email}</Text>
                 <Icon source={phone} />
-                <Text style={{ fontSize: "12pt" }}>{values.phone}</Text>
+                <Text style={{ fontSize: "12pt" }}>{personalInfo.phone}</Text>
                 <Icon source={pin} />
-                <Text style={{ fontSize: "12pt" }}>{values.location}</Text>
+                <Text style={{ fontSize: "12pt" }}>
+                  {personalInfo.location}
+                </Text>
               </View>
               <View style={{ marginVertical: "20pt" }}>
                 <AsideHeading color={color}>Skills</AsideHeading>
                 <AsideSkills>
-                  {values.skills.split(",").map((skill, index) => (
+                  {personalInfo.skills.split(",").map((skill, index) => (
                     <Skill color={color} key={index}>
                       {skill}
                     </Skill>
@@ -83,14 +91,14 @@ const ModernPDF = () => {
             </Aside>
             <Main>
               <Header color={color}>
-                <Name>{values.name}</Name>
-                <Role>{values.title}</Role>
+                <Name>{personalInfo.name}</Name>
+                <Role>{personalInfo.title}</Role>
                 <Line />
-                <Description>{values.bio}</Description>
+                <Description>{personalInfo.bio}</Description>
               </Header>
               <View style={{ marginVertical: 30, paddingRight: 30 }}>
                 <SectionHeading color={color}>work experience</SectionHeading>
-                {work.map(work => (
+                {workExperience.map(work => (
                   <View style={{ paddingVertical: 30 }} key={work.id}>
                     <JobTitle color={color}>{work.role}</JobTitle>
                     <Text>{work.company}</Text>
