@@ -1,2 +1,4 @@
 export const EDIT_PROFILE = "EDIT_PROFILE";
 export const CHANGE_PHOTO = "CHANGE_PHOTO";
+export const ADD_LANGUAGE = "ADD_LANGUAGE";
+export const DELETE_LANGUAGE = "DELETE_LANGUAGE";

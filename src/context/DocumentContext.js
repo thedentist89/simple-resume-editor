@@ -1,5 +1,4 @@
 import React, { createContext, useState, useReducer } from "react";
-import { useForm } from "../hooks";
 import { DocumentReducer } from "../reducers";
 import { initialState } from "../data.json";
 
@@ -7,12 +6,6 @@ export const DocumentContext = createContext();
 
 export const DocumentProvider = ({ children }) => {
   const [state, dispatch] = useReducer(DocumentReducer, initialState);
-
-  const [languages, setLanguages] = useState([
-    { id: "1", name: "French", level: 3 },
-    { id: "2", name: "Arabic", level: 4 },
-    { id: "3", name: "English", level: 1 }
-  ]);
 
   const [work, setWork] = useState([
     {
@@ -122,8 +115,6 @@ export const DocumentProvider = ({ children }) => {
         deleteEducation,
         education,
         setEducation,
-        languages,
-        setLanguages,
         selectColor,
         selectedColor,
         state,

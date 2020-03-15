@@ -1,4 +1,9 @@
-import { EDIT_PROFILE, CHANGE_PHOTO } from "../actions";
+import {
+  EDIT_PROFILE,
+  CHANGE_PHOTO,
+  ADD_LANGUAGE,
+  DELETE_LANGUAGE
+} from "../actions";
 
 export const DocumentReducer = (state, action) => {
   switch (action.type) {
@@ -17,6 +22,18 @@ export const DocumentReducer = (state, action) => {
           ...state.personalInfo,
           image: action.payload.image
         }
+      };
+    case ADD_LANGUAGE:
+      return {
+        ...state,
+        languages: [...state.languages, action.payload.language]
+      };
+    case DELETE_LANGUAGE:
+      return {
+        ...state,
+        languages: state.languages.filter(
+          language => language.id !== action.payload.id
+        )
       };
     default:
       return state;
