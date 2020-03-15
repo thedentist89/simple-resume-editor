@@ -15,6 +15,7 @@
     "react-beautiful-dnd": "^13.0.0",
     "react-dom": "16.12.0",
     "react-scripts": "^3.4.0",
+    "react-spring": "^8.0.27",
     "tailwind-caret-color": "^1.1.0",
     "tailwindcss": "^1.2.0"
   },
