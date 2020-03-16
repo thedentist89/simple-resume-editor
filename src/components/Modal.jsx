@@ -7,8 +7,17 @@ const modalRoot = document.getElementById("modal-root");
 
 export function useModal() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
 
-  return [isOpen, setIsOpen];
+  function toggle() {
+    setIsOpen(!isOpen);
+  }
+
+  function toggleDisabled() {
+    setIsDisabled(!isDisabled);
+  }
+
+  return [isOpen, toggle, isDisabled, toggleDisabled];
 }
 
 const Modal = ({ children, toggle }) => {

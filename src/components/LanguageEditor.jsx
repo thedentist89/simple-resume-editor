@@ -16,9 +16,8 @@ const LanguageEditor = () => {
     language: "",
     level: "1"
   });
-  const [isOpen, setIsOpen] = useModal();
+  const [isOpen, toggle, isDisabled, toggleDisabled] = useModal();
   const [languageID, setLanguageID] = useState("");
-  const [isDisabled, setIsDisabled] = useState(false);
 
   const { languages } = state;
 
@@ -37,10 +36,6 @@ const LanguageEditor = () => {
       }
     });
     setValues({ language: "", level: "1" });
-  };
-
-  const toggle = () => {
-    setIsOpen(!isOpen);
   };
 
   const onDelete = id => {
@@ -148,7 +143,7 @@ const LanguageEditor = () => {
                   type="checkbox"
                   className="form-checkbox mr-2 text-purple-600"
                   checked={isDisabled}
-                  onChange={() => setIsDisabled(true)}
+                  onChange={toggleDisabled}
                 />
                 <span className="text-sm">Don't show again</span>
               </label>
