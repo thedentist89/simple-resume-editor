@@ -12,4 +12,9 @@
 - React Spring
 - Reach Router
 
+## Misc
+
+It'll be highly appriciated if you could open an ISSUE if you have any suggestions or remarks on the Project
+
+
 
