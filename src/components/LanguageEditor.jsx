@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "../hooks";
+import Modal, { useModal } from "./Modal";
 import { DocumentContext } from "../context/DocumentContext";
 import { ReactComponent as Plus } from "../assets/plus.svg";
 import { ReactComponent as Trash } from "../assets/trash.svg";
@@ -15,6 +16,8 @@ const LanguageEditor = () => {
     language: "",
     level: "1"
   });
+  const [isOpen, toggle, isDisabled, toggleDisabled] = useModal();
+  const [languageID, setLanguageID] = useState("");
 
   const { languages } = state;
 
@@ -35,6 +38,20 @@ const LanguageEditor = () => {
     setValues({ language: "", level: "1" });
   };
 
+  const onDelete = id => {
+    if (isDisabled === true) {
+      dispatch({
+        type: DELETE_LANGUAGE,
+        payload: {
+          id
+        }
+      });
+      return;
+    }
+    toggle();
+    setLanguageID(id);
+  };
+
   const handleDelete = id => {
     dispatch({
       type: DELETE_LANGUAGE,
@@ -42,6 +59,7 @@ const LanguageEditor = () => {
         id
       }
     });
+    toggle();
   };
 
   return (
@@ -70,7 +88,7 @@ const LanguageEditor = () => {
                 </div>
                 <button
                   className="text-red-600 text-sm font-semibold my-4 ml-4"
-                  onClick={() => handleDelete(l.id)}
+                  onClick={() => onDelete(l.id)}
                 >
                   <div className="flex items-center">
                     <Trash className="w-4 h-4 mr-2" />
@@ -115,6 +133,38 @@ const LanguageEditor = () => {
           </div>
         </div>
       </div>
+      {isOpen && (
+        <Modal toggle={toggle}>
+          <div className="flex flex-col h-32">
+            <div>
+              <p>Are you sure you want to delete this language?</p>
+              <label className="mt-4 block">
+                <input
+                  type="checkbox"
+                  className="form-checkbox mr-2 text-purple-600"
+                  checked={isDisabled}
+                  onChange={toggleDisabled}
+                />
+                <span className="text-sm">Don't show again</span>
+              </label>
+            </div>
+            <div className="text-right mt-auto">
+              <button
+                className="mr-4 rounded bg-red-600 hover:bg-red-400 active:border-red-700 text-white px-2 py-1"
+                onClick={() => handleDelete(languageID)}
+              >
+                Delete
+              </button>
+              <button
+                className="rounded bg-gray-400 hover:bg-gray-300 px-2 py-1"
+                onClick={toggle}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 };

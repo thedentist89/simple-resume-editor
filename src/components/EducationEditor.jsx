@@ -11,12 +11,14 @@ import {
   ADD_EDUCATION,
   DELETE_EDUCATION
 } from "../actions";
+import Modal, { useModal } from "./Modal";
 
 const EducationEditor = () => {
   const { state, dispatch } = useContext(DocumentContext);
   const { education } = state;
-
+  const [isOpen, toggle, isDisabled, toggleDisabled] = useModal();
   const [localState, setState] = useState({ educationList: education });
+  const [educationID, setEducationID] = useState("");
 
   useEffect(() => {
     setState({ educationList: education });
@@ -54,7 +56,7 @@ const EducationEditor = () => {
     });
   }
 
-  const editEducation = (e, id) => {
+  const handleEdit = (e, id) => {
     dispatch({
       type: EDIT_EDUCATION,
       payload: {
@@ -65,7 +67,7 @@ const EducationEditor = () => {
     });
   };
 
-  const addEducation = () => {
+  const handleAdd = () => {
     dispatch({
       type: ADD_EDUCATION,
       payload: {
@@ -80,13 +82,28 @@ const EducationEditor = () => {
     });
   };
 
-  const deleteEducation = id => {
+  const onDelete = id => {
+    if (isDisabled) {
+      dispatch({
+        type: DELETE_EDUCATION,
+        payload: {
+          id
+        }
+      });
+      return;
+    }
+    setEducationID(id);
+    toggle();
+  };
+
+  const handleDelete = id => {
     dispatch({
       type: DELETE_EDUCATION,
       payload: {
         id
       }
     });
+    toggle();
   };
 
   return (
@@ -123,7 +140,7 @@ const EducationEditor = () => {
                         </div>
                         <button
                           className="text-red-500 font-semibold flex items-center"
-                          onClick={() => deleteEducation(ed.id)}
+                          onClick={() => onDelete(ed.id)}
                         >
                           <Trash className="h-4 w-4 mr-2" />
                           <span>Delete</span>
@@ -137,7 +154,7 @@ const EducationEditor = () => {
                             className="rounded border-b border-transparent caret-purple-600 focus:border-purple-600 bg-gray-100 focus:outline-none p-2 w-full mt-1"
                             value={ed.school}
                             name="school"
-                            onChange={e => editEducation(e, ed.id)}
+                            onChange={e => handleEdit(e, ed.id)}
                           />
                         </div>
                         <div className="mt-3">
@@ -147,7 +164,7 @@ const EducationEditor = () => {
                             className="rounded border-b border-transparent caret-purple-600 focus:border-purple-600 bg-gray-100 focus:outline-none p-2 w-full mt-1"
                             value={ed.degree}
                             name="degree"
-                            onChange={e => editEducation(e, ed.id)}
+                            onChange={e => handleEdit(e, ed.id)}
                           />
                         </div>
                         <div className="mt-3">
@@ -160,14 +177,14 @@ const EducationEditor = () => {
                               className="rounded border-b border-transparent caret-purple-600 focus:border-purple-600 bg-gray-100 focus:outline-none p-2 w-24 mr-2"
                               value={ed.start}
                               name="start"
-                              onChange={e => editEducation(e, ed.id)}
+                              onChange={e => handleEdit(e, ed.id)}
                             />
                             <input
                               type="text"
                               className="rounded border-b border-transparent caret-purple-600 focus:border-purple-600 bg-gray-100 focus:outline-none p-2 w-24"
                               value={ed.end}
                               name="end"
-                              onChange={e => editEducation(e, ed.id)}
+                              onChange={e => handleEdit(e, ed.id)}
                             />
                           </div>
                         </div>
@@ -179,7 +196,7 @@ const EducationEditor = () => {
               {provided.placeholder}
               <button
                 className="text-purple-600 text-lg font-semibold my-4"
-                onClick={addEducation}
+                onClick={handleAdd}
               >
                 <div className="flex items-center">
                   <Plus className="w-4 h-4 mr-2" />
@@ -190,6 +207,38 @@ const EducationEditor = () => {
           )}
         </Droppable>
       </DragDropContext>
+      {isOpen && (
+        <Modal toggle={toggle}>
+          <div className="flex flex-col h-32">
+            <div>
+              <p>Are you sure you want to delete this work experience?</p>
+              <label className="mt-4 block">
+                <input
+                  type="checkbox"
+                  className="form-checkbox mr-2 text-purple-600"
+                  checked={isDisabled}
+                  onChange={toggleDisabled}
+                />
+                <span className="text-sm">Don't show again</span>
+              </label>
+            </div>
+            <div className="text-right mt-auto">
+              <button
+                className="mr-4 rounded bg-red-600 hover:bg-red-400 active:border-red-700 text-white px-2 py-1"
+                onClick={() => handleDelete(educationID)}
+              >
+                Delete
+              </button>
+              <button
+                className="rounded bg-gray-400 hover:bg-gray-300 px-2 py-1"
+                onClick={toggle}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </Modal>
+      )}
     </>
   );
 };
