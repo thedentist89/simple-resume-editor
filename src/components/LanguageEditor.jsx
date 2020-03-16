@@ -18,6 +18,7 @@ const LanguageEditor = () => {
   });
   const [isOpen, setIsOpen] = useModal();
   const [languageID, setLanguageID] = useState("");
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const { languages } = state;
 
@@ -43,6 +44,15 @@ const LanguageEditor = () => {
   };
 
   const onDelete = id => {
+    if (isDisabled === true) {
+      dispatch({
+        type: DELETE_LANGUAGE,
+        payload: {
+          id
+        }
+      });
+      return;
+    }
     toggle();
     setLanguageID(id);
   };
@@ -133,6 +143,15 @@ const LanguageEditor = () => {
           <div className="flex flex-col h-32">
             <div>
               <p>Are you sure you want to delete this language?</p>
+              <label className="mt-4 block">
+                <input
+                  type="checkbox"
+                  className="form-checkbox mr-2 text-purple-600"
+                  checked={isDisabled}
+                  onChange={() => setIsDisabled(true)}
+                />
+                <span className="text-sm">Don't show again</span>
+              </label>
             </div>
             <div className="text-right mt-auto">
               <button
