@@ -2,9 +2,10 @@
 ## :hammer: An app to make a resumes with ease.
 
 :point_right: Clone the repo `git clone https://github.com/mouradaouinat/simple-resume-editor.git`
+<br>
 :point_right: Start the dev server `npm start`
 
-##Technologies used:
+## Technologies used:
 
 - Tailwindcss
 - ReactJs
